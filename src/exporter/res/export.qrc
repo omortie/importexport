@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/export/first.png</file>
+        <file>icons/export/last.png</file>
+		<file>icons/export/next.png</file>
+		<file>icons/export/previous.png</file>
+    </qresource>
+</RCC>

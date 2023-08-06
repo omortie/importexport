@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/import/auto.png</file>
+        <file>icons/import/clean.png</file>
+    </qresource>
+</RCC>
