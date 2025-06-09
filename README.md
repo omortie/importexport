@@ -1,4 +1,4 @@
-![Import Export Header image](./doc/header.png =100x120)
+![Import Export Header image](./doc/header.png)
 
 **Preface**
 
