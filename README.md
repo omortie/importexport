@@ -22,7 +22,7 @@ and [`PythonQt`](https://mevislab.github.io/pythonqt/)) which examples are not i
 
 - [ ] Port to Qt6
 - [ ] Restructure CMake to avoid compiler warnings (use AUTOMOC and AUTOUIC etc.)
-- [ ] Use a better logger library
+- [x] Use a better logger library (Qt logging framework)
 - [ ] Use Shared library
 - [ ] Remove QMake files
 - [ ] Write CI build scripts
