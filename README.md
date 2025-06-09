@@ -20,7 +20,7 @@ and [`PythonQt`](https://mevislab.github.io/pythonqt/)) which examples are not i
 
 ***TODOs***
 
-- [ ] Port to Qt6
+- [x] Ported to Qt6
 - [ ] Restructure CMake to avoid compiler warnings (use AUTOMOC and AUTOUIC etc.)
 - [x] Use a better logger library (Qt logging framework)
 - [ ] Use Shared library

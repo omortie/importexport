@@ -1,7 +1,7 @@
 #ImportExport Library
 project(ImportExport)
 
-find_package(Qt5 REQUIRED COMPONENTS Sql)
+find_package(Qt6 REQUIRED COMPONENTS Sql)
 
 if(DEFINED BUILD_WITH_SCRIPT_SUPPORT)
     find_package(PythonQt REQUIRED)
@@ -68,8 +68,8 @@ file(GLOB RES importer/res/import.qrc
         exporter/res/export.qrc)
 
 #Wrapping Qt Objects
-qt5_wrap_cpp(MOC_SRCS ${HDRS})
-qt5_add_resources(WRES ${RES})
+qt6_wrap_cpp(MOC_SRCS ${HDRS})
+qt6_add_resources(WRES ${RES})
 
 #Headers
 include_directories(importer/inc
@@ -82,7 +82,7 @@ endif(DEFINED BUILD_WITH_SCRIPT_SUPPORT)
 
 #Defining Library
 add_library(${CMAKE_PROJECT_NAME} STATIC ${SRCS} ${MOC_SRCS} ${WRES})
-target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Sql)
+target_link_libraries(${CMAKE_PROJECT_NAME} Qt6::Core Qt6::Widgets Qt6::Sql)
 if(DEFINED BUILD_WITH_SCRIPT_SUPPORT)
     target_link_libraries(${CMAKE_PROJECT_NAME} ${PythonQtLib})
 endif(DEFINED BUILD_WITH_SCRIPT_SUPPORT)
