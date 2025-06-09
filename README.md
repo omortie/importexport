@@ -1,3 +1,5 @@
+![Import Export Header image](./doc/header.png =100x120)
+
 **Preface**
 
 This is my very first project using C++/Qt that includes 2 separated modules for importing and exporting data 
