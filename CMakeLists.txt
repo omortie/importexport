@@ -1,8 +1,6 @@
 project(ImportExport)
 ###################################### PROJECT CONFIGURATION ############################################
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_CXX_STANDARD 17)
-SET(CMAKE_CXX_COMPILE_FEATURES "cxx_decltype")
 
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
 	set(BUILD_POSTFIX _d)

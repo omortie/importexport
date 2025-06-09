@@ -6,7 +6,7 @@ Exporter::Exporter(const QString filePath,const int ibuffer)
     xportFile = new QFile(filePath);
     xportFile->open(QIODevice::WriteOnly|QIODevice::Truncate);
     out=new QTextStream(xportFile);
-    out->setCodec("UTF-8"); // Default codec for now is Unicode UTF-8 , maybe get developed in the future
+    out->setEncoding(QStringConverter::Utf8); // Default codec for now is Unicode UTF-8 , maybe get developed in the future
 }
 
 void Exporter::setFile(const QString filePath)

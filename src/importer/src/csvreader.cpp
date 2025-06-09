@@ -17,7 +17,7 @@ void csvReader::setFilePath(const QString filePath)
 void csvReader::import()
 {
     //calling readToList and sends file and separator and quote and codec so it will extract data from csv
-    dataList = readToList(*importFile,separator,quote,QTextCodec::codecForName(codec.toLatin1()));
+    dataList = readToList(*importFile,separator,quote,QStringConverter::encodingForName(codec.toLatin1()).value());
     if (dataList.isEmpty()) success = false;
     for (int i=0;i<dataList.count();i++)
     {
@@ -74,7 +74,7 @@ inline bool openFile(const QString& filePath, QFile& file)
 QList<QStringList> csvReader::readToList(const QString& filePath,
                                       const QString& separator,
                                       const QString& textDelimiter,
-                                      QTextCodec* codec)
+                                         QStringConverter::Encoding codec)
 {
     QFile file;
     if (false == openFile(filePath, file))
@@ -88,7 +88,7 @@ QList<QStringList> csvReader::readToList(const QString& filePath,
 QList<QStringList> csvReader::readToList(QIODevice &ioDevice,
                                       const QString &separator,
                                       const QString &textDelimiter,
-                                      QTextCodec *codec)
+                                         QStringConverter::Encoding codec)
 {
     ReadToListProcessor processor;
     read(ioDevice, processor, separator, textDelimiter, codec);
@@ -108,7 +108,7 @@ bool csvReader::read(QIODevice& ioDevice,
                          AbstractProcessor& processor,
                          const QString& separator,
                          const QString& textDelimiter,
-                         QTextCodec* codec)
+                     QStringConverter::Encoding codec)
 {
     if ( false == checkParams(separator) )
     {
@@ -124,7 +124,7 @@ bool csvReader::read(QIODevice& ioDevice,
     }
 
     QTextStream stream(&ioDevice);
-    stream.setCodec(codec);
+    stream.setEncoding(codec);
 
     // This list will contain elements of the row if its elements
     // are located on several lines
@@ -384,8 +384,8 @@ int csvReader::findMiddleElementPosition(const QString& str,
         int numOfDelimiters = 0;
         for (int pos = elemEndPos; startPos <= pos; --pos, ++numOfDelimiters)
         {
-            QStringRef strRef = str.midRef(pos, txtDelim.size());
-            if (QStringRef::compare(strRef, txtDelim) != 0)
+            QStringView strRef = str.mid(pos, txtDelim.size());
+            if (QString::compare(strRef, txtDelim) != 0)
             {
                 break;
             }
@@ -437,8 +437,8 @@ bool csvReader::isElementLast(const QString& str,
     int numOfDelimiters = 0;
     for (int pos = str.size() - 1; startPos <= pos; --pos, ++numOfDelimiters)
     {
-        QStringRef strRef = str.midRef(pos, txtDelim.size());
-        if (QStringRef::compare(strRef, txtDelim) != 0)
+        QStringView strRef = str.mid(pos, txtDelim.size());
+        if (QString::compare(strRef, txtDelim) != 0)
         {
             break;
         }
@@ -466,7 +466,7 @@ void csvReader::removeExtraSymbols(QStringList& elements,
     const QString doubleTextDelim = textDelimiter + textDelimiter;
     for (int i = 0; i < elements.size(); ++i)
     {
-        QStringRef str(&elements.at(i));
+        QStringView str(elements.at(i));
         if (str.isEmpty())
         {
             continue;
@@ -489,15 +489,15 @@ void csvReader::removeExtraSymbols(QStringList& elements,
         if (false == textDelimiter.isEmpty())
         {
             // Skip text delimiter symbol if element starts with it
-            QStringRef strStart(&elements.at(i), startPos, textDelimiter.size());
+            QStringView strStart(elements.at(i).mid(startPos, textDelimiter.size()));
             if ( strStart == textDelimiter)
             {
                 startPos += textDelimiter.size();
             }
 
             // Skip text delimiter symbol if element ends with it
-            QStringRef strEnd(&elements.at(i), endPos - textDelimiter.size() + 1,
-                              textDelimiter.size());
+            QStringView strEnd(elements.at(i).mid(endPos - textDelimiter.size() + 1,
+                              textDelimiter.size()));
             if (strEnd == textDelimiter)
             {
                 endPos -= textDelimiter.size();

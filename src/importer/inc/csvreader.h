@@ -4,7 +4,7 @@
 
 #include <QTableWidget>
 #include <QFile>
-#include <QTextCodec>
+#include <QStringConverter>
 #include <QDebug>
 
 const QString DOUBLE_QUOTE("\"");
@@ -97,21 +97,21 @@ private:
     static QList<QStringList> readToList(const QString& filePath,
                     const QString& separator = QString(","),
                     const QString& textDelimiter = QString("\""),
-                    QTextCodec* codec = QTextCodec::codecForName("UTF-8"));
+                                         QStringConverter::Encoding codec = QStringConverter::Utf8);
 
     /*! Read csv-formatted data from IO Device and save it
     * as strings to QList<QStringList> */
     static QList<QStringList> readToList(QIODevice& ioDevice,
                     const QString& separator = QString(","),
                     const QString& textDelimiter = QString("\""),
-                    QTextCodec* codec = QTextCodec::codecForName("UTF-8"));
+                                         QStringConverter::Encoding codec = QStringConverter::Utf8);
     /*! Function that really reads csv-data and transfer it's data to
      * AbstractProcessor-based processor */
     static bool read(QIODevice& ioDevice,
                      AbstractProcessor& processor,
                      const QString& separator,
                      const QString& textDelimiter,
-                     QTextCodec* codec);
+                     QStringConverter::Encoding codec);
     /*! Check if file path and separator are valid
     * \param separator - string or character that separate values in a row
     * \return bool - True if file path and separator are valid, otherwise False */

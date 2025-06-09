@@ -18,9 +18,9 @@ void IntroPage::loadCodecs()
     codecEdit->clear();
     /* Loads all the codecs available on the system
      * it will take a little time and may seems hanging for 1 or 2 seconds , so it depends on user's request */
-    for (int i = 0 ; i < QTextCodec::availableCodecs().count() ; i++)
+    for (int i = 0 ; i < QStringConverter::availableCodecs().count() ; i++)
     {
-        codecEdit->addItem(QTextCodec::availableCodecs().at(i).data());
+        codecEdit->addItem(QStringConverter::availableCodecs().at(i));
     }
 }
 
@@ -89,11 +89,11 @@ void IntroPage::setupUi()
      * by pushing the Load Codecs button it will load all of the codecs available on user system */
     // maximum number of first initialized list of codecs will be determined by host system not just explicit 5
     // this will be for consistency between Qt ICU and Qt Locale migration, will be changed later
-    int codecMaxNumber = QTextCodec::availableCodecs().size();
+    int codecMaxNumber = QStringConverter::availableCodecs().size();
     codecMaxNumber = (codecMaxNumber >= 5) ? 5 : codecMaxNumber;
     for (int i = 0 ; i < codecMaxNumber ; i++)
     {
-        codecEdit->addItem(QTextCodec::availableCodecs().at(i).data());
+        codecEdit->addItem(QStringConverter::availableCodecs().at(i));
     }
     QPushButton *loadCodecsBtn = new QPushButton("Load Codecs");
     loadCodecsBtn->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Preferred);
